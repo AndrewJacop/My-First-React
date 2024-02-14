@@ -1,7 +1,7 @@
 import { SiTodoist } from "react-icons/si";
 import { Button, TextInput } from "flowbite-react";
 import { useState } from "react";
-import TaskItem from "./TaskItem";
+import TaskItem from "../../components/taskItem/TaskItem";
 import { useForm } from "react-hook-form";
 
 export default function ToDo() {

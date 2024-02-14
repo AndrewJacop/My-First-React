@@ -3,6 +3,9 @@
 import { Sidebar } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
+import { MdLocalMovies } from "react-icons/md";
+import { FaHeart } from "react-icons/fa";
 
 import {
   HiArrowSmRight,
@@ -30,6 +33,15 @@ export default function SideBar() {
           </Sidebar.Item>
           <Sidebar.Item icon={HiViewBoards}>
             <Link to="todo">To-Do</Link>
+          </Sidebar.Item>
+          <Sidebar.Item icon={MdLocalMovies}>
+            <Link to="movies">Movies</Link>
+          </Sidebar.Item>
+          <Sidebar.Item icon={FaSearch}>
+            <Link to="search">Search</Link>
+          </Sidebar.Item>
+          <Sidebar.Item icon={FaHeart}>
+            <Link to="fav">Favorites</Link>
           </Sidebar.Item>
           <Sidebar.Item
             href="#"

@@ -1,31 +1,17 @@
-import { Routes, Route } from "react-router-dom";
-import Home from "./components/home/Home";
-import SignIn from "./components/signIn/SignIn";
-import SignUp from "./components/signUp/SignUp";
-import ToDo from "./components/toDo/ToDo";
-import { Flowbite } from "flowbite-react";
-import NavBar from "./components/navBar/NavBar";
-import SideBar from "./components/sideBar/SideBar";
+// import { Routes, Route } from "react-router-dom";
+// import Home from "./pages/home/Home";
+// import SignIn from "./pages/auth/SignIn";
+// import SignUp from "./pages/auth/SignUp";
+// import ToDo from "./pages/toDo/ToDo";
+// import { Flowbite } from "flowbite-react";
+// import NavBar from "./components/navBar/NavBar";
+// import SideBar from "./components/sideBar/SideBar";
+
+import { RouterProvider } from "react-router-dom";
+import { routesList } from "./App.Routes";
 
 const App = () => {
-  return (
-    <>
-      <Flowbite>
-        <NavBar />
-        <main>
-          <SideBar />
-          <section>
-            <Routes className="flex content-center justify-center w-full">
-              <Route path="/" element={<Home />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/signin" element={<SignIn />} />
-              <Route path="/todo" element={<ToDo />} />
-            </Routes>
-          </section>
-        </main>
-      </Flowbite>
-    </>
-  );
+  return <RouterProvider router={routesList} />;
 };
 
 export default App;

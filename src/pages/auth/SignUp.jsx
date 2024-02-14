@@ -35,7 +35,7 @@ export default function SignIn() {
   return (
     <>
       <form
-        className="flex flex-col max-w-md gap-4 m-auto"
+        className="flex flex-col max-w-md gap-4 m-auto mt-10"
         onSubmit={handleSubmit((data) => {
           console.log(data);
           alert(`Welcome ${data.name}`);
