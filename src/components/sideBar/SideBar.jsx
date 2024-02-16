@@ -6,6 +6,7 @@ import { FaHome } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { MdLocalMovies } from "react-icons/md";
 import { FaHeart } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 import {
   HiArrowSmRight,
@@ -18,6 +19,8 @@ import {
 } from "react-icons/hi";
 
 export default function SideBar() {
+  const count = useSelector((state) => state.favList.value.length);
+  // console.log(count);
   return (
     <Sidebar className="flex-none h-screen">
       <Sidebar.Items>
@@ -40,7 +43,7 @@ export default function SideBar() {
           <Sidebar.Item icon={FaSearch}>
             <Link to="search">Search</Link>
           </Sidebar.Item>
-          <Sidebar.Item icon={FaHeart}>
+          <Sidebar.Item icon={FaHeart} label={count}>
             <Link to="fav">Favorites</Link>
           </Sidebar.Item>
           <Sidebar.Item

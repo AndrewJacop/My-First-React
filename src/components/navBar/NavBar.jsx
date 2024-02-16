@@ -17,7 +17,7 @@ export default function NavBar() {
         <Dropdown
           arrowIcon={false}
           inline
-          label={<Avatar alt="User settings" img="profile_pic.jpg" rounded />}
+          label={<Avatar img="profile_pic.jpg" rounded />}
         >
           <Dropdown.Header>
             <span className="block text-sm">Andrew Jacop</span>
@@ -40,7 +40,7 @@ export default function NavBar() {
           <Link to="/">Home</Link>
         </div>
         <div>
-          <Link to="/">About</Link>
+          <Link to="search">Search</Link>
         </div>
         <div>
           <Link to="todo">to-do</Link>

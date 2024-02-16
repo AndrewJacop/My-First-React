@@ -7,7 +7,7 @@ export default function MainLayout() {
     <main>
       <SideBar />
       <section>
-        <div className="flex content-center justify-center w-full">
+        <div className="flex content-center justify-center w-full overflow-y-visible h-svh">
           <Outlet />
         </div>
       </section>

@@ -9,9 +9,15 @@
 
 import { RouterProvider } from "react-router-dom";
 import { routesList } from "./App.Routes";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 const App = () => {
-  return <RouterProvider router={routesList} />;
+  return (
+    <Provider store={store}>
+      <RouterProvider router={routesList} />;
+    </Provider>
+  );
 };
 
 export default App;
