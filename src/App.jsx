@@ -12,15 +12,20 @@ import { router } from "./utils/App.Routes";
 import { Provider } from "react-redux";
 import store from "./services/redux/store";
 import { UserProvider } from "./contexts/user";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const App = () => {
-  const currentUserName = localStorage.getItem("username");
-  const currentUserState = localStorage.getItem("isLoggedIn");
-  const [user, setUser] = useState({
-    name: currentUserName ? currentUserName : "User",
-    isLoggedIn: currentUserState ? currentUserState : false,
-  });
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setUser({
+        username: localStorage.getItem("username"),
+        token: localStorage.getItem("token"),
+      });
+    }
+  }, []);
+
   return (
     <UserProvider value={{ user, setUser }}>
       <Provider store={store}>

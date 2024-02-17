@@ -64,6 +64,14 @@ export default function SignIn() {
                     token: userCredential.user.accessToken,
                     photoURL: userCredential.user.photoURL ?? blankProfilePic,
                   });
+                  localStorage.setItem(
+                    "username",
+                    userCredential.user.displayName
+                  );
+                  localStorage.setItem(
+                    "token",
+                    userCredential.user.accessToken
+                  );
                 })
                 .catch((error) => {
                   toast.error(error.message);

@@ -1,21 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { axInstance } from "../../../utils/axios.instance";
 
-export const moviesAcion = createAsyncThunk("fav/getAll", async () => {
-  const res = await axInstance.get("movie/popular", {
-    params: {
-      page: 1,
-    },
-  });
-  return res.data;
-});
+export const moviesAcion = createAsyncThunk(
+  "movies/getAll",
+  async (currentPage) => {
+    const res = await axInstance.get("movie/popular", {
+      params: {
+        page: currentPage,
+      },
+    });
+    const mlist = res.data.results.slice(0, 12);
+    return mlist;
+  }
+);
 
 const movieSlice = createSlice({
   name: "movies",
-  initialState: [],
+  initialState: { mList: [] },
   extraReducers: (builder) => {
     builder.addCase(moviesAcion.fulfilled, (state, action) => {
-      state.value.push(...action.payload.results);
+      state.mList = [...action.payload];
     });
     //   .addCase(moviesAcion.rejected, (state, action) => {
     //     state.push(...action.payload.results);

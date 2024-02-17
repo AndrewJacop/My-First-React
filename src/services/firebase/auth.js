@@ -18,6 +18,8 @@ export const signMeOut = () => {
       .then(() => {
         // console.log("signed out");
         toast.success("signed out!");
+        localStorage.removeItem("username");
+        localStorage.removeItem("token");
       })
       .catch((error) => {
         toast.error(error.message);

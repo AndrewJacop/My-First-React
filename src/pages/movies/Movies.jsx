@@ -9,9 +9,11 @@ import {
   addToFav,
   removeFromFav,
 } from "../../services/redux/slices/favListSlice";
+import { moviesAcion } from "../../services/redux/slices/movies";
 
 export default function Movies() {
-  const [mList, setList] = useState([]);
+  // const [mList, setList] = useState([]);
+  const mList = useSelector((state) => state.moviesList.mList);
   const [currentPage, setCurrentPage] = useState(1);
   const favList = useSelector((state) => state.favList.value);
   const favIdList = favList.map((f) => f.id);
@@ -27,20 +29,22 @@ export default function Movies() {
   };
 
   useEffect(() => {
-    axInstance
-      .get("movie/popular", {
-        params: {
-          page: currentPage,
-        },
-      })
-      .then((res) => {
-        // console.log(res.data.results);
-        setList(res.data.results.slice(0, 12));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
+    // axInstance
+    //   .get("movie/popular", {
+    //     params: {
+    //       page: currentPage,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     // console.log(res.data.results);
+    //     setList(res.data.results.slice(0, 12));
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    dispatch(moviesAcion(currentPage));
+  }, [currentPage]);
+
   return (
     <>
       <div>
