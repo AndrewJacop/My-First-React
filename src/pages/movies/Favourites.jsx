@@ -1,9 +1,9 @@
-import { baseImgUrl } from "./../../env";
+import { baseImgUrl } from "../../utils/axios.instance";
 import { Button, Card } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { CiCircleRemove } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromFav } from "../../redux/slices/favListSlice";
+import { removeFromFav } from "../../services/redux/slices/favListSlice";
 
 export default function Favourites() {
   const favList = useSelector((state) => state.favList.value);

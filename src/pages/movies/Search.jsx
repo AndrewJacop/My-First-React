@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { axInstance, baseImgUrl } from "./../../env";
+import { axInstance, baseImgUrl } from "../../utils/axios.instance";
 import { Button, Card, Label, TextInput } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";

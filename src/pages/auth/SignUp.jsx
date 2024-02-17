@@ -4,12 +4,21 @@ import { Button } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { FloatingLabel } from "flowbite-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ToggleSwitch } from "flowbite-react";
+import { updateProfile } from "firebase/auth";
+import { auth } from "../../services/firebase/config";
+import { userContext } from "../../contexts/user";
+import { signMeUp } from "../../services/firebase/auth";
+import toast, { Toaster } from "react-hot-toast";
+import blankProfilePic from "../../assets/blank.png";
+import { FileInput, Label } from "flowbite-react";
 
 export default function SignIn() {
   const navigate = useNavigate();
   const [pSwitch, setPSwitch] = useState(false);
+  const { user, setUser } = useContext(userContext);
+
   const {
     register,
     handleSubmit,
@@ -34,12 +43,40 @@ export default function SignIn() {
 
   return (
     <>
+      <div>
+        <Toaster />
+      </div>
       <form
         className="flex flex-col max-w-md gap-4 m-auto mt-10"
         onSubmit={handleSubmit((data) => {
-          console.log(data);
-          alert(`Welcome ${data.name}`);
-          navigate("/");
+          // console.log(data);
+          // alert(`Welcome Backn ${data.email}`);
+          setUser(data.email);
+          signMeUp(data.email, data.password)
+            .then((userCredential) => {
+              updateProfile(auth.currentUser, {
+                displayName: data.name,
+                // photoURL: "https://example.com/jane-q-user/profile.jpg",
+              })
+                .then(() => {
+                  setUser({
+                    username: userCredential.user.displayName,
+                    token: userCredential.user.accessToken,
+                    photoURL: userCredential.user.photoURL ?? blankProfilePic,
+                  });
+                })
+                .catch((error) => {
+                  toast.error(error.message);
+                });
+              // console.log(userCredential);
+              toast.success("Successfully Signed Up! Please Log in");
+              // setUser(userCredential.user);
+              navigate("/");
+            })
+            .catch((err) => {
+              toast.error(err.message);
+            });
+          // console.log(data.pic[0]);
         })}
       >
         <div>
@@ -138,6 +175,16 @@ export default function SignIn() {
           {errors.repeatPassword && (
             <p className="text-red-500">{errors.repeatPassword.message}</p>
           )}
+          <div>
+            <div>
+              <Label htmlFor="file-upload-helper-text" value="Upload file" />
+            </div>
+            <FileInput
+              id="file-upload-helper-text"
+              helperText="SVG, PNG, JPG or GIF (MAX. 800x400px)."
+              {...register("pic")}
+            />
+          </div>
         </div>
         <ToggleSwitch
           className="mt-5"

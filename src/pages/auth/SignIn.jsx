@@ -1,13 +1,17 @@
-"use client";
-
 import { Button, Label, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ToggleSwitch } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { userContext } from "../../contexts/user";
+import { signMeIn } from "../../services/firebase/auth";
+import toast, { Toaster } from "react-hot-toast";
+import blankProfilePic from "../../assets/blank.png";
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const { user, setUser } = useContext(userContext);
   const [pSwitch, setPSwitch] = useState(false);
   const {
     register,
@@ -16,17 +20,37 @@ export default function SignIn() {
   } = useForm({
     mode: "all",
   });
+  // const [userCred, setUserCred] = useState({});
 
   return (
     <>
       <form
         className="flex flex-col max-w-md gap-4 m-auto mt-10"
         onSubmit={handleSubmit((data) => {
-          console.log(data);
-          alert(`Welcome Backn ${data.email}`);
-          navigate("/");
+          // console.log(data);
+          // alert(`Welcome Backn ${data.email}`);
+          // setUser(data.email);
+          signMeIn(data.email, data.password)
+            .then((userCredential) => {
+              // console.log(userCredential);
+              setUser({
+                username: userCredential.user.displayName,
+                token: userCredential.user.accessToken,
+                photoURL: userCredential.user.photoURL ?? blankProfilePic,
+              });
+              toast.success("Successfully Logged In!");
+              console.log(user);
+              // setUser({ isLoggedIn: true });
+              navigate("/");
+            })
+            .catch((err) => {
+              toast.error(err.message);
+            });
         })}
       >
+        <div>
+          <Toaster />
+        </div>
         <div>
           <div className="block mb-2">
             <Label htmlFor="email" value="Your email" />

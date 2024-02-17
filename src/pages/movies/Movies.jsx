@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { axInstance, baseImgUrl } from "./../../env";
+import { axInstance, baseImgUrl } from "../../utils/axios.instance";
 import { Button, Card } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { Pagination } from "flowbite-react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { addToFav, removeFromFav } from "../../redux/slices/favListSlice";
+import {
+  addToFav,
+  removeFromFav,
+} from "../../services/redux/slices/favListSlice";
 
 export default function Movies() {
   const [mList, setList] = useState([]);

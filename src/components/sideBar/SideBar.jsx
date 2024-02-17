@@ -17,9 +17,12 @@ import {
   HiUser,
   HiViewBoards,
 } from "react-icons/hi";
+import { useContext } from "react";
+import { userContext } from "../../contexts/user";
 
 export default function SideBar() {
   const count = useSelector((state) => state.favList.value.length);
+  const { user, setUser } = useContext(userContext);
   // console.log(count);
   return (
     <Sidebar className="flex-none h-screen">
@@ -58,7 +61,7 @@ export default function SideBar() {
             Inbox
           </Sidebar.Item>
           <Sidebar.Item href="#" icon={HiUser}>
-            Users
+            {user.username ?? "Not Signed in"}
           </Sidebar.Item>
           <Sidebar.Item href="#" icon={HiShoppingBag}>
             Products

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { axInstance, baseImgUrl } from "../../env";
+import { axInstance, baseImgUrl } from "../../utils/axios.instance";
 import { Card } from "flowbite-react";
 
 export default function Details() {
